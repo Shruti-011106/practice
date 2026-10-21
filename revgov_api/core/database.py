@@ -125,6 +125,9 @@ async def init_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
         await conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS designation VARCHAR;"))
+        await conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS mobile_number VARCHAR(10);")) 
+    
+    
     from auth.models import Role, User
     from core.constants import (
         ROLE_SUPER_ADMIN,

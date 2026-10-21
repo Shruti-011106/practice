@@ -1,8 +1,12 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List
 from core.schemas import CommonOut
+from pydantic import computed_field
 
 
+
+
+   
 class RoleBase(BaseModel):
     name: str
 
@@ -16,9 +20,19 @@ class UserBase(BaseModel):
     first_name: str
     last_name: str
     designation: Optional[str] = None
+    
+    mobile_number: Optional[str] = Field(
+    None,
+    min_length=10,
+    max_length=10,
+    pattern=r"^[0-9]{10}$"
+    )
+
+
 
 
 class UserCreate(UserBase):
+    email: EmailStr
     password: str = Field(..., min_length=8)
     role_ids: List[int] = Field(..., min_length=1)
     employee_id: int
@@ -35,9 +49,13 @@ class UserUpdate(BaseModel):
 
 
 class UserResponse(CommonOut, UserBase):
-    is_active: bool
+    is_active: bool = Field(exclude=True)
     roles: List[RoleResponse] = []
 
+    @computed_field
+    @property
+    def status(self) -> str:
+        return "Active" if self.is_active else "Inactive"
 
 class UserMeResponse(UserResponse):
     accessible_modules: List[str] = []

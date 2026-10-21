@@ -77,3 +77,20 @@ revgov_api/
             ├── presales.py
             └── sales.py
 ```
+
+
+
+
+
+
+
+
+<!-- cd revgov_api -->
+<!-- Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -->
+<!-- .\env\Scripts\Activate.ps1 -->
+<!-- uvicorn main:app --reload -->
+<!-- http://127.0.0.1:8000/redoc -->
+<!-- http://127.0.0.1:8000/api/docs#/ -->
+
+<!-- & "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -d egt_db -->
+<!-- pass - devshru01 -->
